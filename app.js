@@ -168,20 +168,7 @@ window.onload = function(){
     };
   }
 
-  function filterThePeople(obj) {
-
-
-    if (APP.allThree) {
-
-    } else if (APP.justTwo) {
-
-    } else if (APP.justOne) {
-
-    }
-
-  }
-
-  function iterateThroughPeople() {
+  function filterThePeople() {
 
     for (var i = 0; i < APP.people.length; i++) {
       // ALL THREE
@@ -198,46 +185,53 @@ window.onload = function(){
       // JUST TWO
       } else if (APP.justTwo) {
 
-        // Iterate over all the data-attributes
-        if( (APP.people[i].dataset.geo === APP.categories.category1) &&
-            (APP.people[i].dataset.industry === APP.categories.category2) &&
+        if (APP.whichTwo[0] === "GEO" && APP.whichTwo[1] === "INDUSTRY") {
+          if( (APP.people[i].dataset.geo === APP.categories.category1) &&
+            (APP.people[i].dataset.industry === APP.categories.category2) ) {
+              APP.people[i].classList.remove("hide");
+          } else {
+            APP.people[i].classList.add("hide");
+          }
+        } else if (APP.whichTwo[0] === "INDUSTRY" && APP.whichTwo[1] === "CITY") {
+          if( (APP.people[i].dataset.industry === APP.categories.category2) &&
             (APP.people[i].dataset.city === APP.categories.category3) ) {
-          APP.people[i].classList.remove("hide");
-        } else {
-          APP.people[i].classList.add("hide");
+              APP.people[i].classList.remove("hide");
+          } else {
+            APP.people[i].classList.add("hide");
+          }
+        } else if (APP.whichTwo[0] === "GEO" && APP.whichTwo[1] === "CITY") {
+          if( (APP.people[i].dataset.geo === APP.categories.category1) &&
+            (APP.people[i].dataset.city === APP.categories.category3) ) {
+              APP.people[i].classList.remove("hide");
+          } else {
+            APP.people[i].classList.add("hide");
+          }
         }
 
       // JUST ONE
       } else if (APP.justOne) {
-
+        if( APP.whichOne === "GEO" ) {
+          if( APP.people[i].dataset.geo === APP.categories.category1 ) {
+              APP.people[i].classList.remove("hide");
+          } else {
+            APP.people[i].classList.add("hide");
+          }
+        } else if( APP.whichOne === "INDUSTRY" ) {
+          if( APP.people[i].dataset.industry === APP.categories.category2 ) {
+              APP.people[i].classList.remove("hide");
+          } else {
+            APP.people[i].classList.add("hide");
+          }
+        } else if( APP.whichOne === "CITY" ) {
+          if( APP.people[i].dataset.city === APP.categories.category3 ) {
+              APP.people[i].classList.remove("hide");
+          } else {
+            APP.people[i].classList.add("hide");
+          }
+        }
       }
     }
 
   }
-
-
-
-
-
-
-
-
-// if( APP.people[i].dataset.geo === APP.categories.category1 ) {
-//           APP.people[i].classList.remove("hide");
-//         } else if ( APP.people[i].dataset.industry === APP.categories.category2 ) {
-//           APP.people[i].classList.remove("hide");
-//         } else if ( APP.people[i].dataset.city === APP.categories.category3 ) {
-//           APP.people[i].classList.remove("hide");
-//         } else {
-//           APP.people[i].classList.add("hide");
-//         }
-
-
-
-
-
-
-
-
 
 }
