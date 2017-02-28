@@ -111,6 +111,12 @@ window.onload = function(){
       this.justOne = true;
       this.determineWhichCategory(this.categories.category3);
 
+    } else {
+      this.allThree = false;
+      this.justTwo = false;
+      this.justOne = false;
+      this.whichTwo = [];
+      this.whichOne = null;
     }
   }
   APP.categories.category1 = null;
@@ -229,6 +235,8 @@ window.onload = function(){
             APP.people[i].classList.add("hide");
           }
         }
+      } else {
+        APP.people[i].classList.remove("hide");
       }
     }
 
