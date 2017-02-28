@@ -1,0 +1,43 @@
+html, body {
+  width: 100%;
+  position: relative;
+}
+
+ul  {
+  width: 100%;
+  padding: 20px;
+}
+
+li {
+  display: inline-block;
+  width: 33.3333%;
+  float: left;
+  overflow: hidden;
+  opacity: 1;
+  transition: 0.25s opacity ease-out;
+}
+
+select {
+  -webkit-appearance: select;
+      -moz-appearance: select;
+      appearance: select;
+}
+
+li:nth-of-type(3n) {
+  background-color: lightblue;
+}
+
+li:nth-of-type(3n + 1) {
+  background-color: blue;
+}
+
+li:nth-of-type(3n + 2) {
+  background-color: red;
+}
+
+.hide {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+  z-index: -999;
+}

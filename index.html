@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Filter plugin test</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+    <label for="GEO">Geography:</label>
+    <select size="1" name="GEO">
+      <option selected="selected" value="---">---</option>
+      <option value="america">america</option>
+      <option value="asia">asia</option>
+      <option value="canada">canada</option>
+    </select>
+
+    <label for="INDUSTRY">Industry:</label>
+    <select size="1" name="INDUSTRY">
+      <option selected="selected" value="---">---</option>
+      <option value="bikes">bikes</option>
+      <option value="planes">planes</option>
+      <option value="cars">cars</option>
+      <option value="toys">toys</option>
+    </select>
+
+    <label for="CITY">City:</label>
+    <select size="1" name="CITY">
+      <option selected="selected" value="---">---</option>
+      <option value="chicago">chicago</option>
+      <option value="atlanta">atlanta</option>
+      <option value="los angeles">Los Angeles</option>
+    </select>
+
+    <ul>
+        <li data-city="chicago" data-industry="toys" data-geo="america">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="atlanta" data-industry="planes" data-geo="asia">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="chicago" data-industry="cars" data-geo="america">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="atlanta" data-industry="planes" data-geo="canada">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="los angeles" data-industry="bikes" data-geo="asia">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="chicago" data-industry="cars" data-geo="canada">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="chicago" data-industry="cars" data-geo="america">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="chicago" data-industry="cars" data-geo="asia">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="chicago" data-industry="planes" data-geo="canada">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="atlanta" data-industry="planes" data-geo="canada">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="chicago" data-industry="bikes" data-geo="canada">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+        <li data-city="atlanta" data-industry="cars" data-geo="asia">
+          <img src="http://placehold.it/76x76">
+          <a href="#">Firstname Lastname</a>
+          <p>Title</p>
+        </li>
+    </ul>
+
+
+        <script src="app.js"></script>
+    </body>
+</html>
