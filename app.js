@@ -129,7 +129,6 @@ $(document).ready(function(){
           this.justOne = false;
           this.whichTwo = [];
           this.whichOne = null;
-          console.log("None are selected.");
         }
       };
 
@@ -163,7 +162,6 @@ $(document).ready(function(){
             var k = i;
 
             FILTER.select[k].addEventListener("change", function(e){
-              console.log(this);
               var searchVal = this.value;
               var category = this.name;
               FILTER.returned = FILTER.getCategory( FILTER.returnCategory(searchVal), category );
