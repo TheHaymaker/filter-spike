@@ -2,11 +2,9 @@ var APP = APP || {};
 
 window.onload = function(){
 
-
-
-  APP.industries = ["toys", "cars", "planes", "bikes"];
-  APP.geos = ["america", "asia", "canada"];
-  APP.cities = ["chicago", "atlanta", "los angeles"];
+  APP.geos = ["North America", "Europe, Africa, Latin America", "Asia Pacific"];
+  APP.industries = ["Digital", "Technology", "Corporate Functions", "Consulting", "Products", "Strategy", "H&PS", "Resources", "CMT", "Financial Services"];
+  APP.countries = ["Netherlands", "USA", "Canada", "Argentina", "Germany", "France", "Spain", "Austria", "Singapore", "United Kingdom", "Switzerland", "Finland", "Belgium", "South Africa", "Ireland"];
   APP.categories = {};
   APP.allThree = false;
   APP.justTwo = false;
@@ -24,9 +22,9 @@ window.onload = function(){
             this.whichTwo.push("GEO");
           }
         }
-        for (var j = 0; j < this.cities.length; j++) {
-          if (this.cities[j] === val[i]) {
-            this.whichTwo.push("CITY");
+        for (var j = 0; j < this.countries.length; j++) {
+          if (this.countries[j] === val[i]) {
+            this.whichTwo.push("COUNTRY");
           }
         }
 
@@ -44,9 +42,9 @@ window.onload = function(){
           this.whichOne = "GEO";
         }
       }
-      for (var j = 0; j < this.cities.length; j++) {
-        if (this.cities[j] === val) {
-          this.whichOne = "CITY";
+      for (var j = 0; j < this.countries.length; j++) {
+        if (this.countries[j] === val) {
+          this.whichOne = "COUNTRY";
         }
       }
     }
@@ -123,9 +121,9 @@ window.onload = function(){
   APP.categories.category2 = null;
   APP.categories.category3 = null;
 
-  APP.people = document.querySelectorAll('li');
+  APP.people = document.querySelectorAll('.filter-list-item');
 
-  APP.select = document.querySelectorAll('select');
+  APP.select = document.querySelectorAll('.select-option');
 
   for (var i = 0; i < APP.select.length; i++) {
     APP.select[i].addEventListener("change", function(e){
@@ -159,7 +157,7 @@ window.onload = function(){
         if(options[i].selected) {
           APP.categories.category2 = returnCategory(opt);
         }
-      } else if ( options.name === "CITY" ) {
+      } else if ( options.name === "COUNTRY" ) {
         if(options[i].selected) {
           APP.categories.category3 = returnCategory(opt);
         }
@@ -182,7 +180,7 @@ window.onload = function(){
         // Iterate over all the data-attributes
         if( (APP.people[i].dataset.geo === APP.categories.category1) &&
             (APP.people[i].dataset.industry === APP.categories.category2) &&
-            (APP.people[i].dataset.city === APP.categories.category3) ) {
+            (APP.people[i].dataset.country === APP.categories.category3) ) {
           APP.people[i].classList.remove("hide");
         } else {
           APP.people[i].classList.add("hide");
@@ -198,16 +196,16 @@ window.onload = function(){
           } else {
             APP.people[i].classList.add("hide");
           }
-        } else if (APP.whichTwo[0] === "INDUSTRY" && APP.whichTwo[1] === "CITY") {
+        } else if (APP.whichTwo[0] === "INDUSTRY" && APP.whichTwo[1] === "COUNTRY") {
           if( (APP.people[i].dataset.industry === APP.categories.category2) &&
-            (APP.people[i].dataset.city === APP.categories.category3) ) {
+            (APP.people[i].dataset.country === APP.categories.category3) ) {
               APP.people[i].classList.remove("hide");
           } else {
             APP.people[i].classList.add("hide");
           }
-        } else if (APP.whichTwo[0] === "GEO" && APP.whichTwo[1] === "CITY") {
+        } else if (APP.whichTwo[0] === "GEO" && APP.whichTwo[1] === "COUNTRY") {
           if( (APP.people[i].dataset.geo === APP.categories.category1) &&
-            (APP.people[i].dataset.city === APP.categories.category3) ) {
+            (APP.people[i].dataset.country === APP.categories.category3) ) {
               APP.people[i].classList.remove("hide");
           } else {
             APP.people[i].classList.add("hide");
@@ -228,8 +226,8 @@ window.onload = function(){
           } else {
             APP.people[i].classList.add("hide");
           }
-        } else if( APP.whichOne === "CITY" ) {
-          if( APP.people[i].dataset.city === APP.categories.category3 ) {
+        } else if( APP.whichOne === "COUNTRY" ) {
+          if( APP.people[i].dataset.country === APP.categories.category3 ) {
               APP.people[i].classList.remove("hide");
           } else {
             APP.people[i].classList.add("hide");
