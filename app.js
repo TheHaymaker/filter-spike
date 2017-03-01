@@ -2,14 +2,21 @@ var FILTER = FILTER || {};
 
 $(document).ready(function(){
 
-
+      // Define filter criteria / options
       FILTER.geos = ["North-America", "Europe-Africa-Latin-America", "Asia-Pacific"];
       FILTER.industries = ["Digital", "Technology", "Corporate-Functions", "Consulting", "Products", "Strategy", "H&PS", "Resources", "CMT", "Financial-Services"];
       FILTER.countries = ["Netherlands", "USA", "Canada", "Argentina", "Germany", "France", "Spain", "Austria", "Singapore", "United-Kingdom", "Switzerland", "Finland", "Belgium", "South-Africa", "Ireland"];
+
+      // store category selections inside nested object
       FILTER.categories = {};
+
+      // Filter state tracking
       FILTER.allThree = false;
       FILTER.justTwo = false;
       FILTER.whichTwo = [];
+
+      // determines which category the value belongs to
+      // in the event the category is not available
       FILTER.determineWhichCategory = function(val) {
         if ( this.justTwo ) {
           for (var i = 0; i < val.length; i++) {
@@ -49,8 +56,15 @@ $(document).ready(function(){
           }
         }
       };
+
+      // more Filter state tracking
+      // these are used later on
+      // and were created to simplify our
+      // conditional statements
       FILTER.justOne = false;
       FILTER.whichOne;
+
+      // Determines and updates the state of the filter object
       FILTER.determineFilterStatus = function() {
         if(this.categories.category1 && this.categories.category2 && this.categories.category3) {
           // All three are activated
@@ -119,19 +133,29 @@ $(document).ready(function(){
         }
       };
 
+      // Zeros out categories to start
       FILTER.categories.category1 = null;
       FILTER.categories.category2 = null;
       FILTER.categories.category3 = null;
 
+      // Grab all of your related DOM nodes
       FILTER.people = document.querySelectorAll('.filter-list li');
-
       FILTER.select = document.querySelectorAll('.select-option');
+      FILTER.selectOptions = document.querySelectorAll('.select-option option');
+
+      // This manually assigns a string value
+      // to the <select> element's name property
+      // e.g. <select name="GEO"></select>
+      // the .ASPnet system we built this for stripped out
+      // our data-, selected and name html attributes in form elements
+      // and we needed this data to be consistent available
       FILTER.select[0].name = "GEO";
       FILTER.select[1].name = "INDUSTRY";
       FILTER.select[2].name = "COUNTRY";
 
-      FILTER.selectOptions = document.querySelectorAll('.select-option option');
-
+      // Function using immediately invoked functions
+      // and closures to dynamically assign
+      // event listeners to form elements
       FILTER.addListeners = function() {
 
         for (var i = 0; i < FILTER.select.length; i++) {
@@ -154,6 +178,8 @@ $(document).ready(function(){
 
       };
 
+      // Helper function to return proper data attr
+      // from DOM string value
       FILTER.returnCategory = function (option) {
         if(option === "---") {
           return null;
@@ -162,6 +188,11 @@ $(document).ready(function(){
         }
       };
 
+      // Returns an obj with category names
+      // that is ultimately not used
+      // but this holds the logic to determine
+      // how and with what data occupies
+      // the FILTER object's categories
       FILTER.getCategory = function(sv, cat) {
 
         var searchV = sv;
@@ -202,6 +233,9 @@ $(document).ready(function(){
         }
       };
 
+      // Applies the .hide class to all list items
+      // that do not contain any combination of filter options
+      // This creates the filtering behavior
       FILTER.filterThePeople = function() {
 
         for (var i = 0; i < FILTER.people.length; i++) {
@@ -269,6 +303,7 @@ $(document).ready(function(){
         }
       };
 
+      // Add your listeners...
       FILTER.addListeners();
 
 });
