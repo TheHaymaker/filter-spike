@@ -1,243 +1,274 @@
-var APP = APP || {};
+var FILTER = FILTER || {};
 
-window.onload = function(){
+$(document).ready(function(){
 
-  APP.geos = ["North America", "Europe, Africa, Latin America", "Asia Pacific"];
-  APP.industries = ["Digital", "Technology", "Corporate Functions", "Consulting", "Products", "Strategy", "H&PS", "Resources", "CMT", "Financial Services"];
-  APP.countries = ["Netherlands", "USA", "Canada", "Argentina", "Germany", "France", "Spain", "Austria", "Singapore", "United Kingdom", "Switzerland", "Finland", "Belgium", "South Africa", "Ireland"];
-  APP.categories = {};
-  APP.allThree = false;
-  APP.justTwo = false;
-  APP.whichTwo = [];
-  APP.determineWhichCategory = function(val) {
-    if ( this.justTwo ) {
-      for (var i = 0; i < val.length; i++) {
-        for (var j = 0; j < this.industries.length; j++) {
-          if (this.industries[j] === val[i]) {
-            this.whichTwo.push("INDUSTRY");
+
+      FILTER.geos = ["North-America", "Europe-Africa-Latin-America", "Asia-Pacific"];
+      FILTER.industries = ["Digital", "Technology", "Corporate-Functions", "Consulting", "Products", "Strategy", "H&PS", "Resources", "CMT", "Financial-Services"];
+      FILTER.countries = ["Netherlands", "USA", "Canada", "Argentina", "Germany", "France", "Spain", "Austria", "Singapore", "United-Kingdom", "Switzerland", "Finland", "Belgium", "South-Africa", "Ireland"];
+      FILTER.categories = {};
+      FILTER.allThree = false;
+      FILTER.justTwo = false;
+      FILTER.whichTwo = [];
+      FILTER.determineWhichCategory = function(val) {
+        if ( this.justTwo ) {
+          for (var i = 0; i < val.length; i++) {
+            for (var j = 0; j < this.industries.length; j++) {
+              if (this.industries[j] === val[i]) {
+                this.whichTwo.push("INDUSTRY");
+              }
+            }
+            for (var j = 0; j < this.geos.length; j++) {
+              if (this.geos[j] === val[i]) {
+                this.whichTwo.push("GEO");
+              }
+            }
+            for (var j = 0; j < this.countries.length; j++) {
+              if (this.countries[j] === val[i]) {
+                this.whichTwo.push("COUNTRY");
+              }
+            }
           }
         }
-        for (var j = 0; j < this.geos.length; j++) {
-          if (this.geos[j] === val[i]) {
-            this.whichTwo.push("GEO");
+
+        if ( this.justOne ) {
+          for (var j = 0; j < this.industries.length; j++) {
+            if (this.industries[j] === val) {
+              this.whichOne = "INDUSTRY";
+            }
+          }
+          for (var j = 0; j < this.geos.length; j++) {
+            if (this.geos[j] === val) {
+              this.whichOne = "GEO";
+            }
+          }
+          for (var j = 0; j < this.countries.length; j++) {
+            if (this.countries[j] === val) {
+              this.whichOne = "COUNTRY";
+            }
           }
         }
-        for (var j = 0; j < this.countries.length; j++) {
-          if (this.countries[j] === val[i]) {
-            this.whichTwo.push("COUNTRY");
-          }
-        }
+      };
+      FILTER.justOne = false;
+      FILTER.whichOne;
+      FILTER.determineFilterStatus = function() {
+        if(this.categories.category1 && this.categories.category2 && this.categories.category3) {
+          // All three are activated
+          this.allThree = true;
+          this.justTwo = false;
+          this.justOne = false;
 
-      }
-    }
+        } else if (this.categories.category1 && this.categories.category2 && !this.categories.category3) {
+          // just two - 1 and 2
+          this.allThree = false;
+          this.justTwo = true;
+          this.justOne = false;
+          this.whichTwo = [];
+          this.whichOne = null;
+          var x = [this.categories.category1, this.categories.category2];
+          this.determineWhichCategory(x);
 
-    if ( this.justOne ) {
-      for (var j = 0; j < this.industries.length; j++) {
-        if (this.industries[j] === val) {
-          this.whichOne = "INDUSTRY";
-        }
-      }
-      for (var j = 0; j < this.geos.length; j++) {
-        if (this.geos[j] === val) {
-          this.whichOne = "GEO";
-        }
-      }
-      for (var j = 0; j < this.countries.length; j++) {
-        if (this.countries[j] === val) {
-          this.whichOne = "COUNTRY";
-        }
-      }
-    }
-  };
-  APP.justOne = false;
-  APP.whichOne;
-  APP.determineFilterStatus = function() {
-    if(this.categories.category1 && this.categories.category2 && this.categories.category3) {
-      // All three are activated
-      this.allThree = true;
-      this.justTwo = false;
-      this.justOne = false;
+        } else if (this.categories.category2 && this.categories.category3 && !this.categories.category1) {
+          // just two - 2 and 3
+          this.allThree = false;
+          this.justTwo = true;
+          this.justOne = false;
+          this.whichTwo = [];
+          this.whichOne = null;
+          var x = [this.categories.category2, this.categories.category3];
+          this.determineWhichCategory(x);
 
-    } else if (this.categories.category1 && this.categories.category2 && !this.categories.category3) {
-      // just two - 1 and 2
-      this.allThree = false;
-      this.justTwo = true;
-      this.justOne = false;
-      this.whichTwo = [];
-      this.whichOne = null;
-      var x = [this.categories.category1, this.categories.category2];
-      this.determineWhichCategory(x);
+        } else if (this.categories.category1 && this.categories.category3 && !this.categories.category2) {
+          // just two 1 and 3
+          this.allThree = false;
+          this.justTwo = true;
+          this.justOne = false;
+          this.whichTwo = [];
+          this.whichOne = null;
+          var x = [this.categories.category1, this.categories.category3];
+          this.determineWhichCategory(x);
 
-    } else if (this.categories.category2 && this.categories.category3 && !this.categories.category1) {
-      // just two - 2 and 3
-      this.allThree = false;
-      this.justTwo = true;
-      this.justOne = false;
-      this.whichTwo = [];
-      this.whichOne = null;
-      var x = [this.categories.category2, this.categories.category3];
-      this.determineWhichCategory(x);
+        } else if (this.categories.category1 && !this.categories.category2 && !this.categories.category3) {
+          // just 1 - 1
+          this.allThree = false;
+          this.justTwo = false;
+          this.justOne = true;
+          this.determineWhichCategory(this.categories.category1);
 
-    } else if (this.categories.category1 && this.categories.category3 && !this.categories.category2) {
-      // just two 1 and 3
-      this.allThree = false;
-      this.justTwo = true;
-      this.justOne = false;
-      this.whichTwo = [];
-      this.whichOne = null;
-      var x = [this.categories.category1, this.categories.category3];
-      this.determineWhichCategory(x);
+        } else if (!this.categories.category1 && this.categories.category2 && !this.categories.category3) {
+          // just 1 - 2
+          this.allThree = false;
+          this.justTwo = false;
+          this.justOne = true;
+          this.determineWhichCategory(this.categories.category2);
 
-    } else if (this.categories.category1 && !this.categories.category2 && !this.categories.category3) {
-      // just 1 - 1
-      this.allThree = false;
-      this.justTwo = false;
-      this.justOne = true;
-      this.determineWhichCategory(this.categories.category1);
+        } else if (!this.categories.category1 && !this.categories.category2 && this.categories.category3) {
+          // just 1 - 3
+          this.allThree = false;
+          this.justTwo = false;
+          this.justOne = true;
+          this.determineWhichCategory(this.categories.category3);
 
-    } else if (!this.categories.category1 && this.categories.category2 && !this.categories.category3) {
-      // just 1 - 2
-      this.allThree = false;
-      this.justTwo = false;
-      this.justOne = true;
-      this.determineWhichCategory(this.categories.category2);
-
-    } else if (!this.categories.category1 && !this.categories.category2 && this.categories.category3) {
-      // just 1 - 3
-      this.allThree = false;
-      this.justTwo = false;
-      this.justOne = true;
-      this.determineWhichCategory(this.categories.category3);
-
-    } else {
-      this.allThree = false;
-      this.justTwo = false;
-      this.justOne = false;
-      this.whichTwo = [];
-      this.whichOne = null;
-    }
-  }
-  APP.categories.category1 = null;
-  APP.categories.category2 = null;
-  APP.categories.category3 = null;
-
-  APP.people = document.querySelectorAll('.filter-list-item');
-
-  APP.select = document.querySelectorAll('.select-option');
-
-  for (var i = 0; i < APP.select.length; i++) {
-    APP.select[i].addEventListener("change", function(e){
-
-        APP.returned = getCategory(e);
-        APP.determineFilterStatus();
-        filterThePeople();
-
-    });
-  }
-
-  function returnCategory (option) {
-    if(option.value === "---") {
-      return null;
-    } else {
-      return option.value;
-    }
-  }
-
-  function getCategory(event) {
-    var options = event.target;
-    var activeValue;
-
-    for (var i = 0; i < options.length; i++) {
-      var opt = options[i];
-      if( options.name === "GEO" ) {
-        if(options[i].selected) {
-          APP.categories.category1 = returnCategory(opt);
-        }
-      } else if ( options.name === "INDUSTRY" ) {
-        if(options[i].selected) {
-          APP.categories.category2 = returnCategory(opt);
-        }
-      } else if ( options.name === "COUNTRY" ) {
-        if(options[i].selected) {
-          APP.categories.category3 = returnCategory(opt);
-        }
-      }
-
-    }
-
-    return {
-      0: APP.categories.category1,
-      1: APP.categories.category2,
-      2: APP.categories.category3
-    };
-  }
-
-  function filterThePeople() {
-
-    for (var i = 0; i < APP.people.length; i++) {
-      // ALL THREE
-      if (APP.allThree) {
-        // Iterate over all the data-attributes
-        if( (APP.people[i].dataset.geo === APP.categories.category1) &&
-            (APP.people[i].dataset.industry === APP.categories.category2) &&
-            (APP.people[i].dataset.country === APP.categories.category3) ) {
-          APP.people[i].classList.remove("hide");
         } else {
-          APP.people[i].classList.add("hide");
+          this.allThree = false;
+          this.justTwo = false;
+          this.justOne = false;
+          this.whichTwo = [];
+          this.whichOne = null;
+          console.log("None are selected.");
+        }
+      };
+
+      FILTER.categories.category1 = null;
+      FILTER.categories.category2 = null;
+      FILTER.categories.category3 = null;
+
+      FILTER.people = document.querySelectorAll('.filter-list li');
+
+      FILTER.select = document.querySelectorAll('.select-option');
+      FILTER.select[0].name = "GEO";
+      FILTER.select[1].name = "INDUSTRY";
+      FILTER.select[2].name = "COUNTRY";
+
+      FILTER.selectOptions = document.querySelectorAll('.select-option option');
+
+      FILTER.addListeners = function() {
+
+        for (var i = 0; i < FILTER.select.length; i++) {
+          (function(){
+            var k = i;
+
+            FILTER.select[k].addEventListener("change", function(e){
+              console.log(this);
+              var searchVal = this.value;
+              var category = this.name;
+              FILTER.returned = FILTER.getCategory( FILTER.returnCategory(searchVal), category );
+              FILTER.determineFilterStatus();
+              FILTER.filterThePeople();
+
+            });
+
+
+          }());
         }
 
-      // JUST TWO
-      } else if (APP.justTwo) {
+      };
 
-        if (APP.whichTwo[0] === "GEO" && APP.whichTwo[1] === "INDUSTRY") {
-          if( (APP.people[i].dataset.geo === APP.categories.category1) &&
-            (APP.people[i].dataset.industry === APP.categories.category2) ) {
-              APP.people[i].classList.remove("hide");
-          } else {
-            APP.people[i].classList.add("hide");
+      FILTER.returnCategory = function (option) {
+        if(option === "---") {
+          return null;
+        } else {
+          return option;
+        }
+      };
+
+      FILTER.getCategory = function(sv, cat) {
+
+        var searchV = sv;
+        var categ = cat;
+
+          // GEO CHECK
+          for (var i = 0; i < FILTER.geos.length; i++) {
+            if (FILTER.geos[i] === searchV) {
+              categ = "GEO";
+            }
           }
-        } else if (APP.whichTwo[0] === "INDUSTRY" && APP.whichTwo[1] === "COUNTRY") {
-          if( (APP.people[i].dataset.industry === APP.categories.category2) &&
-            (APP.people[i].dataset.country === APP.categories.category3) ) {
-              APP.people[i].classList.remove("hide");
-          } else {
-            APP.people[i].classList.add("hide");
+          // INDUSTRY CHECK
+          for (var i = 0; i < FILTER.industries.length; i++) {
+            if (FILTER.industries[i] === searchV) {
+              categ = "INDUSTRY";
+            }
           }
-        } else if (APP.whichTwo[0] === "GEO" && APP.whichTwo[1] === "COUNTRY") {
-          if( (APP.people[i].dataset.geo === APP.categories.category1) &&
-            (APP.people[i].dataset.country === APP.categories.category3) ) {
-              APP.people[i].classList.remove("hide");
+          // COUNTRY CHECK
+          for (var i = 0; i < FILTER.countries.length; i++) {
+            if (FILTER.countries[i] === searchV) {
+              categ = "COUNTRY";
+            }
+          }
+
+          if( categ === "GEO" ) {
+            FILTER.categories.category1 = searchV;
+          } else if ( categ === "INDUSTRY" ) {
+              FILTER.categories.category2 = searchV;
+          } else if ( categ === "COUNTRY" ) {
+              FILTER.categories.category3 = searchV;
+          }
+
+
+        return {
+          0: FILTER.categories.category1,
+          1: FILTER.categories.category2,
+          2: FILTER.categories.category3
+        }
+      };
+
+      FILTER.filterThePeople = function() {
+
+        for (var i = 0; i < FILTER.people.length; i++) {
+          // ALL THREE
+          if (this.allThree) {
+            // Iterate over all the data-attributes
+            if( (this.people[i].classList.contains(this.categories.category1) ) &&
+                (this.people[i].classList.contains(this.categories.category2) ) &&
+                (this.people[i].classList.contains(this.categories.category3) )) {
+              this.people[i].classList.remove("hide");
+            } else {
+              this.people[i].classList.add("hide");
+            }
+
+          // JUST TWO
+          } else if (this.justTwo) {
+
+            if (this.whichTwo[0] === "GEO" && this.whichTwo[1] === "INDUSTRY") {
+              if( (this.people[i].classList.contains(this.categories.category1) ) &&
+                (this.people[i].classList.contains(this.categories.category2)) ) {
+                  this.people[i].classList.remove("hide");
+              } else {
+                this.people[i].classList.add("hide");
+              }
+            } else if (this.whichTwo[0] === "INDUSTRY" && this.whichTwo[1] === "COUNTRY") {
+              if ( (this.people[i].classList.contains(this.categories.category2) ) &&
+                ( this.people[i].classList.contains(this.categories.category3) ) ) {
+                  this.people[i].classList.remove("hide");
+              } else {
+                this.people[i].classList.add("hide");
+              }
+            } else if (this.whichTwo[0] === "GEO" && this.whichTwo[1] === "COUNTRY") {
+              if( (this.people[i].classList.contains(this.categories.category1) ) &&
+                  (this.people[i].classList.contains(this.categories.category3) )) {
+                  this.people[i].classList.remove("hide");
+              } else {
+                this.people[i].classList.add("hide");
+              }
+            }
+
+          // JUST ONE
+          } else if (this.justOne) {
+            if( this.whichOne === "GEO" ) {
+              if( this.people[i].classList.contains(this.categories.category1) )  {
+                  this.people[i].classList.remove("hide");
+              } else {
+                this.people[i].classList.add("hide");
+              }
+            } else if( this.whichOne === "INDUSTRY" ) {
+              if( this.people[i].classList.contains(this.categories.category2) ) {
+                  this.people[i].classList.remove("hide");
+              } else {
+                this.people[i].classList.add("hide");
+              }
+            } else if( this.whichOne === "COUNTRY" ) {
+              if( this.people[i].classList.contains(this.categories.category3)) {
+                  this.people[i].classList.remove("hide");
+              } else {
+                this.people[i].classList.add("hide");
+              }
+            }
           } else {
-            APP.people[i].classList.add("hide");
+            this.people[i].classList.remove("hide");
           }
         }
+      };
 
-      // JUST ONE
-      } else if (APP.justOne) {
-        if( APP.whichOne === "GEO" ) {
-          if( APP.people[i].dataset.geo === APP.categories.category1 ) {
-              APP.people[i].classList.remove("hide");
-          } else {
-            APP.people[i].classList.add("hide");
-          }
-        } else if( APP.whichOne === "INDUSTRY" ) {
-          if( APP.people[i].dataset.industry === APP.categories.category2 ) {
-              APP.people[i].classList.remove("hide");
-          } else {
-            APP.people[i].classList.add("hide");
-          }
-        } else if( APP.whichOne === "COUNTRY" ) {
-          if( APP.people[i].dataset.country === APP.categories.category3 ) {
-              APP.people[i].classList.remove("hide");
-          } else {
-            APP.people[i].classList.add("hide");
-          }
-        }
-      } else {
-        APP.people[i].classList.remove("hide");
-      }
-    }
+      FILTER.addListeners();
 
-  }
-
-}
+});
