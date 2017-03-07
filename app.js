@@ -4,7 +4,7 @@ $(document).ready(function(){
 
       // Define filter criteria / options
       FILTER.geos = ["North-America", "Europe-Africa-Latin-America", "Asia-Pacific"];
-      FILTER.industries = ["Digital", "Technology", "Corporate-Functions", "Consulting", "Products", "Strategy", "H&PS", "Resources", "CMT", "Financial-Services"];
+      FILTER.industries = ["Products","Resources", "Health-&-Public-Service", "Communications/Media/Technology", "Financial-Services", "Cross-Industry"];
       FILTER.countries = ["Netherlands", "USA", "Canada", "Argentina", "Germany", "France", "Spain", "Austria", "Singapore", "United-Kingdom", "Switzerland", "Finland", "Belgium", "South-Africa", "Ireland"];
 
       // store category selections inside nested object
